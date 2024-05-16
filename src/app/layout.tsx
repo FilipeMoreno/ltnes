@@ -14,7 +14,7 @@ export const metadata: Metadata = {
     description: "um site incrível para pessoas incríveis",
     type: "website",
     url: "https://ltnes.com.br",
-    images: ['/logo.svg']
+    images: ['https://ltnes.vercel.app/logo.svg']
   }
 };
 
