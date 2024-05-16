@@ -14,18 +14,16 @@ export const metadata: Metadata = {
     description: "Um APP incrível para pessoas incríveis",
     type: "website",
     url: "https://ltnes.com.br",
-    images: ['https://ltnes.vercel.app/logo.svg'],
+    images: ['/opengraph-image.jpg'],
     locale: 'pt-BR'
   },
   twitter: {
     card: "summary_large_image",
-    images: ['https://ltnes.vercel.app/logo.svg'],
+    images: ['/opengraph-image.jpg'],
     description: "Um APP incrível para pessoas incríveis",
     title: "The LTNES"
-  }
+  },
 };
-
-
 
 export default function RootLayout({
   children,
