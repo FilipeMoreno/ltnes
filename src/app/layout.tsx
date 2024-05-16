@@ -10,11 +10,18 @@ export const metadata: Metadata = {
   title: "LTNES",
   description: "Site do LTNES",
   openGraph: {
-    title: "the ltnes",
-    description: "um site incrível para pessoas incríveis",
+    title: "The LTNES",
+    description: "Um APP incrível para pessoas incríveis",
     type: "website",
     url: "https://ltnes.com.br",
-    images: ['https://ltnes.vercel.app/logo.svg']
+    images: ['https://ltnes.vercel.app/logo.svg'],
+    locale: 'pt-BR'
+  },
+  twitter: {
+    card: "summary_large_image",
+    images: ['https://ltnes.vercel.app/logo.svg'],
+    description: "Um APP incrível para pessoas incríveis",
+    title: "The LTNES"
   }
 };
 
