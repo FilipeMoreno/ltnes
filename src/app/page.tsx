@@ -88,7 +88,7 @@ export default function Home() {
 		return unsubscribe();
 	}, []);
 
-	const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
+	const [theme, setTheme] = useState("dark");
 
 	useEffect(() => {
 		localStorage.setItem("theme", theme);
