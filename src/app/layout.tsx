@@ -2,7 +2,8 @@ import type { Metadata } from "next";
 import { Finger_Paint, Inter } from "next/font/google";
 import { ImageResponse } from "next/og";
 import "@/styles/globals.css";
-import { ThemeProvider } from "@/components/theme-provider";
+
+import Providers from "./providers";
 
 const inter = Inter({
 	subsets: ["latin"],
@@ -57,16 +58,12 @@ export default function RootLayout({
 	children: React.ReactNode;
 }>) {
 	return (
-		<html lang="pt-BR">
+		<html lang="pt-BR" className="antialiased" suppressHydrationWarning>
+			<head>
+				<meta charSet="utf-8" />
+			</head>
 			<body className={`${inter.variable} ${fingerpaint.variable}`}>
-				<ThemeProvider
-					attribute="class"
-					defaultTheme="system"
-					enableSystem
-					disableTransitionOnChange
-				>
-					{children}
-				</ThemeProvider>
+				<Providers>{children}</Providers>
 			</body>
 		</html>
 	);

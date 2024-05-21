@@ -2,7 +2,6 @@
 import { Button } from "@/components/ui/button";
 import {
 	Card,
-	CardContent,
 	CardDescription,
 	CardFooter,
 	CardHeader,
@@ -11,13 +10,12 @@ import {
 import {
 	googleLogin,
 	login,
-	logout,
 	onAuthChanged,
 } from "@/utils/firebase/authService";
 import { User, sendEmailVerification } from "firebase/auth";
 import Image from "next/image";
 import { FormEvent, useEffect, useRef, useState } from "react";
-import { FaGoogle } from "react-icons/fa";
+import { FaGoogle, FaMoon, FaSun } from "react-icons/fa";
 import Typed from "typed.js";
 
 export default function Home() {
@@ -89,40 +87,66 @@ export default function Home() {
 		return unsubscribe();
 	}, []);
 
-	return (
-		<main
-			onSubmit={handleLogin}
-			className="w-full h-full flex lg:flex-row flex-col items-center justify-center my-24"
-		>
-			<div className="flex flex-col items-center justify-center">
-				<Image
-					className="relative"
-					src="/logo.png"
-					alt="Ltnes Logo"
-					width={400}
-					height={400}
-					priority
-				/>
-				<h1 className="text-4xl font-fingerpaint" ref={el}></h1>
-			</div>
+	const [theme, setTheme] = useState(localStorage.getItem("theme") || "dark");
 
-			<Card className="max-w-sm lg:max-w-lg">
-				<CardHeader>
-					<CardTitle className="text-2xl font-bold">
-						Seja um dos primeiros a experimentar o LTNES!
-					</CardTitle>
-					<CardDescription>
-						Garanta sua vaga na lista de espera e receba notificações exclusivas
-						sobre novidades!
-					</CardDescription>
-				</CardHeader>
-				<CardFooter>
-					<Button onClick={googleLogin} className="w-full">
-						<FaGoogle className="mr-4" />
-						Entrar com Google
-					</Button>
-				</CardFooter>
-			</Card>
-		</main>
+	useEffect(() => {
+		localStorage.setItem("theme", theme);
+		if (theme === "dark") {
+			document.documentElement.classList.add("dark");
+		} else {
+			document.documentElement.classList.remove("dark");
+		}
+	}, [theme]);
+
+	function toggleTheme() {
+		setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
+	}
+
+	return (
+		<div className={`w-full h-full ${theme}`}>
+			<Button
+				onClick={toggleTheme}
+				className="fixed top-4 right-4 z-50 p-2 rounded-full shadow-md bg-zinc-400 hover:bg-zinc-600 dark:bg-zinc-300 dark:hover:bg-zinc-400"
+			>
+				{theme === "light" ? <FaMoon size={24} /> : <FaSun size={24} />}
+			</Button>
+			<main
+				onSubmit={handleLogin}
+				className="w-full h-full flex lg:flex-row flex-col items-center justify-center my-24"
+			>
+				<div className="flex flex-col items-center justify-center">
+					<Image
+						className="relative"
+						src="/logo.png"
+						alt="Ltnes Logo"
+						width={400}
+						height={400}
+						priority
+					/>
+					<div
+						className="text-4xl font-fingerpaint"
+						ref={el}
+						style={{ height: "50px" }} // Define uma altura fixa
+					/>
+				</div>
+				<Card className="max-w-sm lg:max-w-lg lg:ml-8 mt-8 lg:mt-0">
+					<CardHeader>
+						<CardTitle className="text-2xl font-bold">
+							Seja um dos primeiros a experimentar o LTNES!
+						</CardTitle>
+						<CardDescription>
+							Garanta sua vaga na lista de espera e receba notificações
+							exclusivas sobre novidades!
+						</CardDescription>
+					</CardHeader>
+					<CardFooter>
+						<Button onClick={googleLogin} className="w-full">
+							<FaGoogle className="mr-4" />
+							Entrar com Google
+						</Button>
+					</CardFooter>
+				</Card>
+			</main>
+		</div>
 	);
 }
