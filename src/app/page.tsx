@@ -20,6 +20,18 @@ import { FaGoogle, FaMoon, FaSignOutAlt, FaSun } from "react-icons/fa";
 import Typed from "typed.js";
 
 export default function Home() {
+	useEffect(() => {
+		navigator.serviceWorker
+			.register("/sw.js")
+			.then((registration) =>
+				console.log(
+					"Service Worker registration successful with scope: ",
+					registration.scope,
+				),
+			)
+			.catch((err) => console.log("Service Worker registration failed: ", err));
+	}, []);
+
 	const el = useRef(null);
 	useEffect(() => {
 		const typed = new Typed(el.current, {
