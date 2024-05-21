@@ -2,9 +2,19 @@ import type { Metadata } from "next";
 import { Finger_Paint, Inter } from "next/font/google";
 import { ImageResponse } from "next/og";
 import "@/styles/globals.css";
+import { ThemeProvider } from "@/components/theme-provider";
 
-const inter = Inter({ subsets: ["latin"] });
-const fingerpaint = Finger_Paint({ subsets: ["latin"], weight: "400" });
+const inter = Inter({
+	subsets: ["latin"],
+	display: "swap",
+	variable: "--font-inter",
+});
+const fingerpaint = Finger_Paint({
+	subsets: ["latin"],
+	weight: "400",
+	display: "swap",
+	variable: "--font-fingerpaint",
+});
 
 const teste = new ImageResponse(
 	<div
@@ -48,7 +58,16 @@ export default function RootLayout({
 }>) {
 	return (
 		<html lang="pt-BR">
-			<body className={fingerpaint.className}>{children}</body>
+			<body className={`${inter.variable} ${fingerpaint.variable}`}>
+				<ThemeProvider
+					attribute="class"
+					defaultTheme="system"
+					enableSystem
+					disableTransitionOnChange
+				>
+					{children}
+				</ThemeProvider>
+			</body>
 		</html>
 	);
 }
