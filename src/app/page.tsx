@@ -14,38 +14,11 @@ import {
 	onAuthChanged,
 } from "@/utils/firebase/authService";
 import { User, sendEmailVerification } from "firebase/auth";
-import Image from "next/image";
-import { FormEvent, useEffect, useRef, useState } from "react";
+import { FormEvent, useEffect, useState } from "react";
 import { FaGoogle, FaMoon, FaSignOutAlt, FaSun } from "react-icons/fa";
-import Typed from "typed.js";
+import ComingSoonComponent from "./_comingsoon";
 
 export default function Home() {
-	useEffect(() => {
-		navigator.serviceWorker
-			.register("/sw.js")
-			.then((registration) =>
-				console.log(
-					"Service Worker registration successful with scope: ",
-					registration.scope,
-				),
-			)
-			.catch((err) => console.log("Service Worker registration failed: ", err));
-	}, []);
-
-	const el = useRef(null);
-	useEffect(() => {
-		const typed = new Typed(el.current, {
-			strings: ["Em Breve", "Coming Soon", "À Venir", "Prossimamente"],
-			typeSpeed: 50,
-			loop: true,
-			backSpeed: 50,
-			cursorChar: "",
-		});
-		return () => {
-			typed.destroy();
-		};
-	}, []);
-
 	const [user, setUser] = useState<User | null>();
 	const [loading, setLoading] = useState(false);
 
@@ -126,31 +99,18 @@ export default function Home() {
 			{user && (
 				<main
 					onSubmit={handleLogin}
-					className="w-full h-full flex lg:flex-row flex-col items-center justify-center my-24"
+					className="w-full h-full flex lg:flex-row flex-col items-center justify-center my-4"
 				>
-					<div className="flex flex-col items-center justify-center">
-						<Image
-							className="relative"
-							src="/logo.png"
-							alt="Ltnes Logo"
-							width={400}
-							height={400}
-							priority
-						/>
-						<div
-							className="text-4xl font-fingerpaint"
-							ref={el}
-							style={{ height: "50px" }} // Define uma altura fixa
-						/>
-					</div>
-					<Card className="max-w-sm lg:max-w-lg lg:ml-8 mt-8 lg:mt-0">
+					<ComingSoonComponent />
+					<Card className="max-w-sm lg:max-w-lg lg:ml-8 mt-8 lg:mt-0 mx-2">
 						<CardHeader>
 							<CardTitle className="text-2xl font-bold">
-								Parabéns! Você está na lista de espera!
+								Parabéns, {user.displayName?.split(" ")[0]}! Você está na lista
+								de espera! 🥳
 							</CardTitle>
-							<CardDescription>
-								Seja um dos primeiros a experimentar o LTNES! Lançamento em
-								breve.
+							<CardDescription className="flex flex-col justify-center">
+								Seu nome já está na nossa lista de espera. Você deve receber o
+								seu convite por e-mail em breve. Obrigado por se juntar a nós!
 							</CardDescription>
 						</CardHeader>
 						<CardFooter>
@@ -165,24 +125,10 @@ export default function Home() {
 			{!user && (
 				<main
 					onSubmit={handleLogin}
-					className="w-full h-full flex lg:flex-row flex-col items-center justify-center my-24"
+					className="w-full h-full flex lg:flex-row flex-col items-center justify-center my-4"
 				>
-					<div className="flex flex-col items-center justify-center">
-						<Image
-							className="relative"
-							src="/logo.png"
-							alt="Ltnes Logo"
-							width={400}
-							height={400}
-							priority
-						/>
-						<div
-							className="text-4xl font-fingerpaint"
-							ref={el}
-							style={{ height: "50px" }} // Define uma altura fixa
-						/>
-					</div>
-					<Card className="max-w-sm lg:max-w-lg lg:ml-8 mt-8 lg:mt-0">
+					<ComingSoonComponent />
+					<Card className="max-w-sm lg:max-w-lg lg:ml-8 mt-8 lg:mt-0 mx-2">
 						<CardHeader>
 							<CardTitle className="text-2xl font-bold">
 								Seja um dos primeiros a experimentar o LTNES!
