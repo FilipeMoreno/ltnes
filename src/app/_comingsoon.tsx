@@ -19,7 +19,7 @@ export default function ComingSoonComponent() {
 	return (
 		<div className="flex flex-col items-center justify-center">
 			<Image
-				src="/logo.png"
+				src="/logo-natal.png"
 				alt="Ltnes Logo"
 				width={400}
 				height={400}

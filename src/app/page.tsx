@@ -17,6 +17,8 @@ import { User, sendEmailVerification } from "firebase/auth";
 import { FormEvent, useEffect, useState } from "react";
 import { FaGoogle, FaMoon, FaSignOutAlt, FaSun } from "react-icons/fa";
 import ComingSoonComponent from "./_comingsoon";
+import Snowfall from "@/components/snowfall";
+import ChristmasPlaylist from "@/components/ChristmasPlaylist";
 
 export default function Home() {
 	const [user, setUser] = useState<User | null>();
@@ -94,8 +96,10 @@ export default function Home() {
 				onClick={toggleTheme}
 				className="fixed top-4 right-4 z-50 p-2 rounded-full shadow-md bg-zinc-400 hover:bg-zinc-600 dark:bg-zinc-300 dark:hover:bg-zinc-400"
 			>
-				{theme === "light" ? <FaMoon size={24} /> : <FaSun size={24} />}
+				{theme === "light" ? <FaMoon size={20} /> : <FaSun size={20} />}
 			</Button>
+			<ChristmasPlaylist />
+
 			{user && (
 				<main
 					onSubmit={handleLogin}
@@ -147,6 +151,7 @@ export default function Home() {
 					</Card>
 				</main>
 			)}
+			<Snowfall />
 		</div>
 	);
 }
