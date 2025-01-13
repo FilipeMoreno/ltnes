@@ -23,6 +23,7 @@ import ChristmasPlaylist from "@/components/ChristmasPlaylist";
 export default function Home() {
 	const [user, setUser] = useState<User | null>();
 	const [loading, setLoading] = useState(false);
+	const [themeType, setThemeType] = useState("default");
 
 	async function handleRegister(event: FormEvent<HTMLFormElement>) {
 		event.preventDefault();
@@ -90,6 +91,10 @@ export default function Home() {
 		setTheme((prevTheme) => (prevTheme === "light" ? "dark" : "light"));
 	}
 
+	useEffect(() => {
+		localStorage.setItem("data-comemorativa", themeType);
+	}, []);
+
 	return (
 		<div className={`w-full h-full ${theme}`}>
 			<Button
@@ -98,7 +103,21 @@ export default function Home() {
 			>
 				{theme === "light" ? <FaMoon size={20} /> : <FaSun size={20} />}
 			</Button>
-			<ChristmasPlaylist />
+
+			{themeType === "natal" && (
+				<>
+					<ChristmasPlaylist />
+					<Snowfall />
+				</>
+			)}
+
+			{themeType === "halloween" && (
+				<>
+					<div className="absolute w-full h-full bg-black text-orange-500 flex justify-center items-center">
+						<h1 className="text-4xl font-bold">Happy Halloween! 🎃</h1>
+					</div>
+				</>
+			)}
 
 			{user && (
 				<main
@@ -151,7 +170,6 @@ export default function Home() {
 					</Card>
 				</main>
 			)}
-			<Snowfall />
 		</div>
 	);
 }
